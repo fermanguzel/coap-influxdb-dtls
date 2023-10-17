@@ -1,66 +1,77 @@
-# CoAP Server with InfluxDB Integration
+# CoAP to InfluxDB with DTLS
 
-This is a simple CoAP (Constrained Application Protocol) server implemented in Node.js. The server responds to CoAP GET requests with random sensor data (CO2, Temperature, and Humidity) and sends this data to an InfluxDB database for storage. This README will guide you through setting up and using the CoAP server.
+This project provides a solution to bridge data from CoAP (Constrained Application Protocol) endpoints to InfluxDB using DTLS (Datagram Transport Layer Security). It allows you to securely collect and store data from IoT devices that communicate over CoAP protocols into your InfluxDB database.
 
-## Prerequisites
+## Table of Contents
 
-Before you begin, ensure you have the following prerequisites installed:
+- [Introduction](#introduction)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
 
-- Node.js: You can download and install Node.js from [nodejs.org](https://nodejs.org/).
-- InfluxDB: Make sure you have InfluxDB set up and running. You should also have an InfluxDB token ready for writing data.
+## Introduction
 
-## Installation
+CoAP is a lightweight IoT communication protocol, and InfluxDB is a popular time-series database. This project bridges the gap between CoAP and InfluxDB, allowing you to collect, store, and analyze data from your IoT devices seamlessly.
 
-```bash
-git clone https://github.com/fermanguzel/coap-influxdb-tls
-```
+## Features
 
-1. Install the required Node.js packages using npm.
+- **CoAP to InfluxDB**: Collect data from CoAP endpoints and store it in InfluxDB.
+- **DTLS Security**: Secure communication using Datagram Transport Layer Security.
+- **Customizable Configuration**: Easily configure the bridge to match your specific needs.
 
-```bash
-npm install
-```
+## Getting Started
 
-## Configuration
+### Prerequisites
 
-Before you can start using the CoAP server, you need to configure some settings in the **"coap.js"** file:
+Before using this project, you should have the following prerequisites:
 
-- **"influxDBURL"**: Set the URL of your InfluxDB server with the appropriate organization and bucket.
+- CoAP devices you want to collect data from.
+- An InfluxDB instance to store the data.
+- Knowledge of your InfluxDB database setup (URL, database name, credentials, etc.).
+- OpenSSL or other DTLS library for secure communication.
 
-- **"influxDBToken"**: Replace it with your InfluxDB authorization token.
+### Installation
+
+1. Clone this repository:
+
+   ```shell
+   git clone https://github.com/fermanguzel/coap-influxdb-dtls.git
+   ```
+
+2. Build the project:
+
+   ```shell
+   cd coap-influxdb-dtls
+   ```
 
 ## Usage
 
-To start the CoAP server, open your terminal and run the following command:
+To use this project, follow these steps:
 
-```bash
-node coap.js
-```
+1. Configure the `coap-influxdb-dtls.toml` file with your specific settings. You can find an example configuration in the `example-config` directory.
 
-The CoAP server will start on port 5683.
+2. Run the bridge:
 
-## Making CoAP Requests
+   ```shell
+   ./coap-influxdb-dtls -config /path/to/your/coap-influxdb-dtls.toml
+   ```
 
-You can make CoAP GET requests to the server using a CoAP client or a tool like **coap-cli**. Here's an example using **coap-cli**
+3. The bridge will start listening for CoAP messages and sending data to InfluxDB.
 
-```bash
-coap get coap://localhost:5683/co2
-```
+## Contributing
 
-Replace **"/co2"** with **"/temperature"** or **"/humidity"** to get other sensor data.
+We welcome contributions to this project. To contribute, follow these steps:
 
-## Data Storage
-
-The server sends the received data to the InfluxDB database. You can access and query this data using InfluxDB's tools.
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Submit a pull request.
 
 ## License
 
-This CoAP server is open-source and available under the [MIT License](https://github.com/fermanguzel/coap-influxdb/blob/main/LICENSE).
-
-## Authors
-
-### FERMAN GÜZEL
-
-Feel free to contribute and improve this project! If you have any questions or encounter issues, please open an issue in the repository.
-
-Happy CoAP-ing!
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
